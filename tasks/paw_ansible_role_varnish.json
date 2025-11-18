@@ -1,0 +1,156 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Execute the entire Ansible role imperatively",
+  "input_method": "environment",
+  "parameters": {
+    "varnish_default_backend_host": {
+      "description": "Ansible role variable (default: 127.0.0.1)",
+      "type": "Optional[String]"
+    },
+    "varnish_default_backend_port": {
+      "description": "Ansible role variable (default: 8080)",
+      "type": "Optional[String]"
+    },
+    "backend": {
+      "description": "",
+      "type": "Optional[String]"
+    },
+    "vhost": {
+      "description": "",
+      "type": "Optional[String]"
+    },
+    "varnish_secret": {
+      "description": "Ansible role variable (default: 14bac2e6-1e34-4770-8078-974373b76c90)",
+      "type": "Optional[String]"
+    },
+    "varnish_limit_nofile": {
+      "description": "Ansible role variable (default: 131072)",
+      "type": "Optional[Integer]"
+    },
+    "varnish_pidfile": {
+      "description": "Ansible role variable (default: /run/varnishd.pid)",
+      "type": "Optional[String]"
+    },
+    "varnish_config_path": {
+      "description": "Ansible role variable (default: /etc/varnish)",
+      "type": "Optional[String]"
+    },
+    "varnish_listen_address": {
+      "description": "Ansible role variable (default: )",
+      "type": "Optional[String]"
+    },
+    "varnish_listen_port": {
+      "description": "Ansible role variable (default: 80)",
+      "type": "Optional[String]"
+    },
+    "varnish_admin_listen_host": {
+      "description": "Ansible role variable (default: 127.0.0.1)",
+      "type": "Optional[String]"
+    },
+    "varnish_admin_listen_port": {
+      "description": "Ansible role variable (default: 6082)",
+      "type": "Optional[String]"
+    },
+    "varnish_storage": {
+      "description": "Ansible role variable (default: file,/var/lib/varnish/varnish_storage.bin,256M)",
+      "type": "Optional[String]"
+    },
+    "varnishd_extra_options": {
+      "description": "Ansible role variable (default: )",
+      "type": "Optional[String]"
+    },
+    "varnish_package_name": {
+      "description": "Ansible role variable (default: varnish)",
+      "type": "Optional[String]"
+    },
+    "varnish_modules_package_name": {
+      "description": "Ansible role variable (default: )",
+      "type": "Optional[String]"
+    },
+    "varnish_version": {
+      "description": "Ansible role variable (default: 6.6)",
+      "type": "Optional[String]"
+    },
+    "varnish_use_default_vcl": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "varnish_default_vcl_template_path": {
+      "description": "Ansible role variable (default: default.vcl.j2)",
+      "type": "Optional[String]"
+    },
+    "varnish_enabled_services": {
+      "description": "Ansible role variable (default: [\"varnish\"])",
+      "type": "Optional[Array]"
+    },
+    "varnish_apt_use_packagecloud": {
+      "description": "Use Packagecloud repo instead of distribution default",
+      "type": "Optional[Boolean]"
+    },
+    "varnish_packagecloud_repo_yum_repository_priority": {
+      "description": "Make sure Packagecloud repo is used on RHEL/CentOS.",
+      "type": "Optional[String]"
+    },
+    "varnish_yum_repo_baseurl": {
+      "description": "Only used on RedHat / CentOS.",
+      "type": "Optional[String]"
+    },
+    "varnish_apt_repo": {
+      "description": "Only used on Debian / Ubuntu.",
+      "type": "Optional[String]"
+    },
+    "par_tags": {
+      "description": "An array of Ansible tags to execute (optional)",
+      "type": "Optional[Array[String]]"
+    },
+    "par_skip_tags": {
+      "description": "An array of Ansible tags to skip (optional)",
+      "type": "Optional[Array[String]]"
+    },
+    "par_start_at_task": {
+      "description": "The name of the task to start execution at (optional)",
+      "type": "Optional[String]"
+    },
+    "par_limit": {
+      "description": "Limit playbook execution to specific hosts (optional)",
+      "type": "Optional[String]"
+    },
+    "par_verbose": {
+      "description": "Enable verbose output from Ansible (optional)",
+      "type": "Optional[Boolean]"
+    },
+    "par_check_mode": {
+      "description": "Run Ansible in check mode (dry-run) (optional)",
+      "type": "Optional[Boolean]"
+    },
+    "par_timeout": {
+      "description": "Timeout in seconds for playbook execution (optional)",
+      "type": "Optional[Integer]"
+    },
+    "par_user": {
+      "description": "Remote user to use for Ansible connections (optional)",
+      "type": "Optional[String]"
+    },
+    "par_env_vars": {
+      "description": "Additional environment variables for ansible-playbook execution (optional)",
+      "type": "Optional[Hash]"
+    }
+  },
+  "implementations": [
+    {
+      "name": "paw_ansible_role_varnish.sh",
+      "requirements": [
+        "shell"
+      ],
+      "input_method": "environment"
+    },
+    {
+      "name": "paw_ansible_role_varnish.ps1",
+      "requirements": [
+        "powershell"
+      ],
+      "input_method": "environment"
+    }
+  ]
+}
