@@ -27,6 +27,6 @@ include paw_ansible_role_varnish
 #   varnish_enabled_services => ['varnish'],
 #   varnish_apt_use_packagecloud => true,
 #   varnish_packagecloud_repo_yum_repository_priority => '1',
-#   varnish_yum_repo_baseurl => 'https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/el/{{ ansible_distribution_major_version|int }}/$basearch',
-#   varnish_apt_repo => 'deb https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main',
+#   varnish_yum_repo_baseurl => 'https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/el/{{ ansible_facts.distribution_major_version|int }}/$basearch',
+#   varnish_apt_repo => 'deb https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/{{ ansible_facts.distribution | lower }}/ {{ ansible_facts.distribution_release }} main',
 # }

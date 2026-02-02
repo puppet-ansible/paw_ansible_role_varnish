@@ -76,11 +76,11 @@ Services that will be started at boot and should be running after this role is c
 
 (RedHat/CentOS only) The `yum` priority for the Packagecloud repository used to install Varnish. Setting this explicitly forces yum to use the Packagecloud repositories to install Varnish even in environments (e.g. Amazon Linux) where other repositories may have higher priorities than the default.
 
-    varnish_apt_repo: deb https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main
+    varnish_apt_repo: deb https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/{{ ansible_facts.distribution | lower }}/ {{ ansible_facts.distribution_release }} main
 
 (Debian/Ubuntu only) The `repo` for the apt repository.
 
-    varnish_yum_repo_baseurl: https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/el/{{ ansible_distribution_major_version|int }}/$basearch
+    varnish_yum_repo_baseurl: https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/el/{{ ansible_facts.distribution_major_version|int }}/$basearch
 
 (RedHat/CentOS only) The `baseurl` for the yum repository.
 

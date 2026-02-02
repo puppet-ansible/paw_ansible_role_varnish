@@ -8,7 +8,7 @@
   yum:
     name: pygpgme
     state: present
-  when: ansible_distribution_major_version | int < 8
+  when: ansible_facts.distribution_major_version | int < 8
 
 - name: Add Varnish packagecloud.io yum repo.
   yum_repository:
@@ -40,4 +40,4 @@
   yum:
     name: "{{ varnish_modules_package_name }}"
     state: present
-  when: varnish_modules_package_name
+  when: varnish_modules_package_name | length > 0

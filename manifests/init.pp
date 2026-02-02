@@ -25,6 +25,7 @@
 # @param varnish_packagecloud_repo_yum_repository_priority Make sure Packagecloud repo is used on RHEL/CentOS.
 # @param varnish_yum_repo_baseurl Only used on RedHat / CentOS.
 # @param varnish_apt_repo Only used on Debian / Ubuntu.
+# @param par_vardir Base directory for Puppet agent cache (uses lookup('paw::par_vardir') for common config)
 # @param par_tags An array of Ansible tags to execute (optional)
 # @param par_skip_tags An array of Ansible tags to skip (optional)
 # @param par_start_at_task The name of the task to start execution at (optional)
@@ -59,8 +60,9 @@ class paw_ansible_role_varnish (
   Array $varnish_enabled_services = ['varnish'],
   Boolean $varnish_apt_use_packagecloud = true,
   String $varnish_packagecloud_repo_yum_repository_priority = '1',
-  String $varnish_yum_repo_baseurl = 'https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/el/{{ ansible_distribution_major_version|int }}/$basearch',
-  String $varnish_apt_repo = 'deb https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main',
+  String $varnish_yum_repo_baseurl = 'https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/el/{{ ansible_facts.distribution_major_version|int }}/$basearch',
+  String $varnish_apt_repo = 'deb https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/{{ ansible_facts.distribution | lower }}/ {{ ansible_facts.distribution_release }} main',
+  Optional[Stdlib::Absolutepath] $par_vardir = undef,
   Optional[Array[String]] $par_tags = undef,
   Optional[Array[String]] $par_skip_tags = undef,
   Optional[String] $par_start_at_task = undef,
@@ -74,14 +76,13 @@ class paw_ansible_role_varnish (
   Optional[Boolean] $par_exclusive = undef
 ) {
 # Execute the Ansible role using PAR (Puppet Ansible Runner)
-  $vardir = $facts['puppet_vardir'] ? {
-    undef   => $settings::vardir ? {
-      undef   => '/opt/puppetlabs/puppet/cache',
-      default => $settings::vardir,
-    },
-    default => $facts['puppet_vardir'],
+# Playbook synced via pluginsync to agent's cache directory
+# Check for common paw::par_vardir setting, then module-specific, then default
+  $_par_vardir = $par_vardir ? {
+    undef   => lookup('paw::par_vardir', Stdlib::Absolutepath, 'first', '/opt/puppetlabs/puppet/cache'),
+    default => $par_vardir,
   }
-  $playbook_path = "${vardir}/lib/puppet_x/ansible_modules/ansible_role_varnish/playbook.yml"
+  $playbook_path = "${_par_vardir}/lib/puppet_x/ansible_modules/ansible_role_varnish/playbook.yml"
 
   par { 'paw_ansible_role_varnish-main':
     ensure        => present,

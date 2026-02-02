@@ -8,10 +8,15 @@
           - gnupg2
         state: present
 
+    # apt-key is deprecated and absent since debian 13 (trixie).
+    # The new way to do this without adding an extra gpg --dearmor task is to use get_url to download the file
+    # into the trusted.gpg.d folder with the .asc filename
     - name: Add packagecloud.io Varnish apt key.
-      apt_key:
+      ansible.builtin.get_url:
         url: https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/gpgkey
-        state: present
+        dest: /etc/apt/trusted.gpg.d/varnishcache_{{ varnish_packagecloud_repo }}-archive-keyring.asc
+        mode: '0644'
+        force: true
 
     - name: Add packagecloud.io Varnish apt repository.
       apt_repository:
@@ -28,4 +33,4 @@
   apt:
     name: "{{ varnish_modules_package_name }}"
     state: present
-  when: varnish_modules_package_name
+  when: varnish_modules_package_name | length > 0
