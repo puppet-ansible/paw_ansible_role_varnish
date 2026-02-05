@@ -78,51 +78,51 @@ class paw_ansible_role_varnish (
 # Execute the Ansible role using PAR (Puppet Ansible Runner)
 # Playbook synced via pluginsync to agent's cache directory
 # Check for common paw::par_vardir setting, then module-specific, then default
-$_par_vardir = $par_vardir ? {
-  undef   => lookup('paw::par_vardir', Stdlib::Absolutepath, 'first', '/opt/puppetlabs/puppet/cache'),
-  default => $par_vardir,
-}
-$playbook_path = "${_par_vardir}/lib/puppet_x/ansible_modules/ansible_role_varnish/playbook.yml"
+  $_par_vardir = $par_vardir ? {
+    undef   => lookup('paw::par_vardir', Stdlib::Absolutepath, 'first', '/opt/puppetlabs/puppet/cache'),
+    default => $par_vardir,
+  }
+  $playbook_path = "${_par_vardir}/lib/puppet_x/ansible_modules/ansible_role_varnish/playbook.yml"
 
-par { 'paw_ansible_role_varnish-main':
-  ensure        => present,
-  playbook      => $playbook_path,
-  playbook_vars => {
-        'varnish_default_backend_host' => $varnish_default_backend_host,
-        'varnish_default_backend_port' => $varnish_default_backend_port,
-        'backend' => $backend,
-        'vhost' => $vhost,
-        'varnish_secret' => $varnish_secret,
-        'varnish_limit_nofile' => $varnish_limit_nofile,
-        'varnish_pidfile' => $varnish_pidfile,
-        'varnish_config_path' => $varnish_config_path,
-        'varnish_listen_address' => $varnish_listen_address,
-        'varnish_listen_port' => $varnish_listen_port,
-        'varnish_admin_listen_host' => $varnish_admin_listen_host,
-        'varnish_admin_listen_port' => $varnish_admin_listen_port,
-        'varnish_storage' => $varnish_storage,
-        'varnishd_extra_options' => $varnishd_extra_options,
-        'varnish_package_name' => $varnish_package_name,
-        'varnish_modules_package_name' => $varnish_modules_package_name,
-        'varnish_version' => $varnish_version,
-        'varnish_use_default_vcl' => $varnish_use_default_vcl,
-        'varnish_default_vcl_template_path' => $varnish_default_vcl_template_path,
-        'varnish_enabled_services' => $varnish_enabled_services,
-        'varnish_apt_use_packagecloud' => $varnish_apt_use_packagecloud,
-        'varnish_packagecloud_repo_yum_repository_priority' => $varnish_packagecloud_repo_yum_repository_priority,
-        'varnish_yum_repo_baseurl' => $varnish_yum_repo_baseurl,
-        'varnish_apt_repo' => $varnish_apt_repo
-              },
-  tags          => $par_tags,
-  skip_tags     => $par_skip_tags,
-  start_at_task => $par_start_at_task,
-  limit         => $par_limit,
-  verbose       => $par_verbose,
-  check_mode    => $par_check_mode,
-  timeout       => $par_timeout,
-  user          => $par_user,
-  env_vars      => $par_env_vars,
-  logoutput     => $par_logoutput,
-  exclusive     => $par_exclusive,
-}
+  par { 'paw_ansible_role_varnish-main':
+    ensure        => present,
+    playbook      => $playbook_path,
+    playbook_vars => {
+      'varnish_default_backend_host'                      => $varnish_default_backend_host,
+      'varnish_default_backend_port'                      => $varnish_default_backend_port,
+      'backend'                                           => $backend,
+      'vhost'                                             => $vhost,
+      'varnish_secret'                                    => $varnish_secret,
+      'varnish_limit_nofile'                              => $varnish_limit_nofile,
+      'varnish_pidfile'                                   => $varnish_pidfile,
+      'varnish_config_path'                               => $varnish_config_path,
+      'varnish_listen_address'                            => $varnish_listen_address,
+      'varnish_listen_port'                               => $varnish_listen_port,
+      'varnish_admin_listen_host'                         => $varnish_admin_listen_host,
+      'varnish_admin_listen_port'                         => $varnish_admin_listen_port,
+      'varnish_storage'                                   => $varnish_storage,
+      'varnishd_extra_options'                            => $varnishd_extra_options,
+      'varnish_package_name'                              => $varnish_package_name,
+      'varnish_modules_package_name'                      => $varnish_modules_package_name,
+      'varnish_version'                                   => $varnish_version,
+      'varnish_use_default_vcl'                           => $varnish_use_default_vcl,
+      'varnish_default_vcl_template_path'                 => $varnish_default_vcl_template_path,
+      'varnish_enabled_services'                          => $varnish_enabled_services,
+      'varnish_apt_use_packagecloud'                      => $varnish_apt_use_packagecloud,
+      'varnish_packagecloud_repo_yum_repository_priority' => $varnish_packagecloud_repo_yum_repository_priority,
+      'varnish_yum_repo_baseurl'                          => $varnish_yum_repo_baseurl,
+      'varnish_apt_repo'                                  => $varnish_apt_repo,
+    },
+    tags          => $par_tags,
+    skip_tags     => $par_skip_tags,
+    start_at_task => $par_start_at_task,
+    limit         => $par_limit,
+    verbose       => $par_verbose,
+    check_mode    => $par_check_mode,
+    timeout       => $par_timeout,
+    user          => $par_user,
+    env_vars      => $par_env_vars,
+    logoutput     => $par_logoutput,
+    exclusive     => $par_exclusive,
+  }
 }
